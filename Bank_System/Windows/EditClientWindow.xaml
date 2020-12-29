@@ -1,0 +1,27 @@
+﻿<Window x:Class="Bank_System.Windows.EditClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bank_System.Windows"
+        mc:Ignorable="d"
+        Title="EDIT CLIENT" Height="400" Width="200" ResizeMode="NoResize">
+    <Grid>
+        <StackPanel>
+            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" TextAlignment="Center">Client name :</TextBlock>
+            <TextBox x:Name="TB_EditClientName" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Height="21"/>
+            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" TextAlignment="Center">Client last name :</TextBlock>
+            <TextBox x:Name="TB_EditClientLastName" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Height="21"/>
+            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" TextAlignment="Center">Client deposit amount :</TextBlock>
+            <TextBox x:Name="TB_EditClientDeposit" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Height="21"/>
+            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" TextAlignment="Center">Client percent amount :</TextBlock>
+            <TextBox x:Name="TB_EditClientPercent" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Height="21"/>
+            <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" TextAlignment="Center">Client's date of deposit :</TextBlock>
+            <DatePicker x:Name="DP_EditClientDateOfDeposit" Margin="10" SelectedDateFormat="Short"></DatePicker>
+
+            <Button HorizontalAlignment="Center" Click="BTN_Clients_EditClient" Cursor="Hand" Width="100" Height="60">
+                <TextBlock Text="Edit Client" TextWrapping="Wrap" TextAlignment="Center" FontSize="15"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

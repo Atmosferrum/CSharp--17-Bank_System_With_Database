@@ -1,0 +1,77 @@
+﻿<Window x:Class="Bank_System.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bank_System"
+        mc:Ignorable="d"
+        Title="Vivaldi Bank" MinHeight="450" MinWidth="800" Height="450" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" MaxWidth="400"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="LV_Clients" Margin="10" Grid.Column="1" Grid.RowSpan="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="Auto"/>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="Auto"/>
+                    <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" Width="Auto"/>
+                    <GridViewColumn Header="Deposit" DisplayMemberBinding="{Binding Deposit,StringFormat={}{0} $}" Width="Auto"/>
+                    <GridViewColumn Header="Percent" DisplayMemberBinding="{Binding Percent,StringFormat={}{0} %}" Width="Auto"/>
+                    <GridViewColumn Header="Accumulation" DisplayMemberBinding="{Binding Accumulation,StringFormat={}{0} $}" Width="Auto"/>
+                    <GridViewColumn Header="Balance" DisplayMemberBinding="{Binding Balance,StringFormat={}{0} $}" Width="Auto"/>
+                    <GridViewColumn Header="Date Of Deposit" DisplayMemberBinding="{Binding DateOfDeposit,StringFormat={}{0}}" Width="Auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ScrollViewer Margin="10" Padding="10">
+            <StackPanel Grid.Column="0">
+
+                <Label Content="-Bank Structure-"/>
+
+                <TreeView x:Name="TV_Departments" SelectedItemChanged="TV_Departments_SelectedItemChanged">
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Path=Departments}">
+                            <TextBlock Text="{Binding Name}" />
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+                <TextBlock>Min. Deposit = 1 $
+                    <LineBreak/>Max. Deposit = 1 000 000 $
+                    <LineBreak/>Min. Percent = 0.1 %
+                    <LineBreak/>Max. Percent = 9.9 %
+                </TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock Margin="10" TextWrapping="Wrap" TextAlignment="Center">If you make a deposit for 1000 $ or more, it will get Capitalization, otherwise it won't!</TextBlock>
+            <DockPanel >
+
+            <Button HorizontalAlignment="Left" Margin="25 10 0 0" Click="BTN_Clients_AddClient" Cursor="Hand" Width="100" Height="60">
+                <TextBlock Text="Add Client" TextWrapping="Wrap" TextAlignment="Center" FontSize="15"/>
+            </Button>
+                <Button HorizontalAlignment="Center" Margin="25 10 0 0" Click="BTN_Clients_EditClient" Cursor="Hand" Width="100" Height="60">
+                    <TextBlock Text="Edit Client" TextWrapping="Wrap" TextAlignment="Center" FontSize="15"/>
+                </Button>
+                <Button HorizontalAlignment="Right" Margin="0 10 25 0" Click="BTN_Clients_RemoveClient" Cursor="Hand" Width="100" Height="60">
+                    <TextBlock Text="Remove Client" TextWrapping="Wrap" TextAlignment="Center" FontSize="15"/>
+                </Button>
+
+
+            </DockPanel>
+            <DockPanel>
+                <Button HorizontalAlignment="Center" Margin="0 10"  Cursor="Hand" Width="100" Height="60" Click="BTN_Clients_Transfer">
+                    <TextBlock Text="Transfer" TextWrapping="Wrap" TextAlignment="Center" FontSize="15"/>
+                </Button>
+            </DockPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>
