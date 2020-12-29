@@ -9,6 +9,9 @@ namespace Bank_Independent
     public class Department<T> : ICollection<T>, IEnumerable<T>
         where T : Client
     {
+        private static int ID; //ID for all Departments
+        private int departmentID; //ID for current Department
+
         public ObservableCollection<Department<Client>> Departments { get; set; } //Collection of inner Departments
 
         protected T[] items; //Array of Items in this.Collection.Generic
@@ -24,6 +27,7 @@ namespace Bank_Independent
         /// <param name="Name"></param>
         public Department(string Name)
         {
+            this.departmentID = Department<T>.NextID();
             this.Name = Name;
             this.items = new T[0];
             this.size = 0;
@@ -33,6 +37,12 @@ namespace Bank_Independent
         #endregion Constructor
 
         #region Properties;
+
+        private static int NextID()
+        {
+            ID++;
+            return ID;
+        }
 
         /// <summary>
         /// Property to GET Name

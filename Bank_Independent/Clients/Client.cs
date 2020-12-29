@@ -6,6 +6,8 @@ namespace Bank_Independent
     {
         #region Fields;
 
+        private static int ID = 0; //ID for all Clients
+        private int clientID; //ID of Current Client
         private DateTime dateOfDeposit; //DateOfDeposit field
 
         #endregion Fields
@@ -26,30 +28,40 @@ namespace Bank_Independent
                       float Percent,
                       DateTime DateOfDeposit)
         {
+            this.clientID = NextID();
             this.Name = Name;
             this.LastName = LastName;
             this.Deposit = Deposit;
             this.Percent = Percent;
             this.DateOfDeposit = DateOfDeposit;
             this.Status = this.GetType().Name;
+            this.DepartmentID = Status == "Royal" ? 3 : (Status == "Aristocrat" ? 2 : 1);
         }
 
         #endregion Constructor
 
         #region Properties;
 
+        public int ClientID { get { return this.clientID; } } //Property to GET Client ID
+        public int DepartmentID { get; private set; } //Property to GET or SET DepartmentID
         public string Status { get; private set; } //Property to GET or SET Status
         public string Name { get; set; } //Property to GET or SET Name
         public string LastName { get; set; } //Property to GET or SET LastName
         public int Deposit { get; set; } //Property to GET or SET Deposit
         public float Percent { get; set; } //Property to GET or SET Percent
         public float Accumulation { get; set; } //Property to GET or SET Accumulation
-        public float Balance { get; set; } //Property to GET or SET Total Client's Balance
+        public float Balance { get; set; } //Property to GET or SET Total Client's Balance        
 
         public DateTime DateOfDeposit //Department Property
         {
             get { return this.dateOfDeposit; }
             set { this.dateOfDeposit = value; CountAccumulation(); }
+        }
+
+        private int NextID()
+        {
+            ID++;
+            return ID;
         }
 
         #endregion Properties

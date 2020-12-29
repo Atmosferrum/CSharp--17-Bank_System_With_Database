@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Database;
+
 namespace Bank_Independent
 {
     public static class Bank
@@ -50,11 +52,16 @@ namespace Bank_Independent
             Departments.Add(bank);
 
             Departments[0].Departments.Add(bronze);
+            Starter.Insert(bronze.Name);
             Departments[0].Departments.Add(silver);
+            Starter.Insert(silver.Name);
             Departments[0].Departments.Add(gold);
+            Starter.Insert(gold.Name);
 
             PopulateBank();
-        }
+
+            Starter.Start();
+        }        
 
         /// <summary>
         /// Adding random Clients to Bank
@@ -90,13 +97,34 @@ namespace Bank_Independent
                                                                               args[2],
                                                                               args[3],
                                                                               args[4]));
+            //else
+            //    Departments[0].Departments[clientClassIndex].Add(ManageClient(clientClassIndex,
+            //                                                                  $"Name {(char)clientRandom.Next(128)}",
+            //                                                                  $"Name {(char)clientRandom.Next(128)}",
+            //                                                                  Convert.ToString(clientRandom.Next(2_000)),
+            //                                                                  Convert.ToString(clientRandom.Next(1, 6)),
+            //                                                                  Convert.ToString(DateRandomizer())));
             else
-                Departments[0].Departments[clientClassIndex].Add(ManageClient(clientClassIndex,
-                                                                              $"Name {(char)clientRandom.Next(128)}",
-                                                                               $"Name {(char)clientRandom.Next(128)}",
-                                                                               Convert.ToString(clientRandom.Next(2_000)),
-                                                                               Convert.ToString(clientRandom.Next(1, 6)),
-                                                                               Convert.ToString(DateRandomizer())));
+            {
+                var tempClient = ManageClient(clientClassIndex,
+                                              $"Name {(char)clientRandom.Next(128)}",
+                                              $"Name {(char)clientRandom.Next(128)}",
+                                              Convert.ToString(clientRandom.Next(2_000)),
+                                              Convert.ToString(clientRandom.Next(1, 6)),
+                                              Convert.ToString(DateRandomizer()));
+
+                Departments[0].Departments[clientClassIndex].Add(tempClient);
+
+                Starter.Insert(tempClient.Status,
+                               tempClient.Name,
+                               tempClient.LastName,
+                               tempClient.Deposit,
+                               tempClient.Percent,
+                               tempClient.Accumulation,
+                               tempClient.Balance,
+                               tempClient.DepartmentID);
+            }
+
             Task saveDataTask = new Task(SaveData);
             saveDataTask.Start();
             saveDataTask.Wait();
@@ -114,10 +142,10 @@ namespace Bank_Independent
             else
                 Departments[0].Departments[clientClassIndex].Add(ManageClient(clientClassIndex,
                                                                               $"Name {(char)clientRandom.Next(128)}",
-                                                                               $"Name {(char)clientRandom.Next(128)}",
-                                                                               Convert.ToString(clientRandom.Next(2_000)),
-                                                                               Convert.ToString(clientRandom.Next(1, 6)),
-                                                                               Convert.ToString(DateRandomizer())));
+                                                                              $"Name {(char)clientRandom.Next(128)}",
+                                                                              Convert.ToString(clientRandom.Next(2_000)),
+                                                                              Convert.ToString(clientRandom.Next(1, 6)),
+                                                                              Convert.ToString(DateRandomizer())));
 
             Task saveDataTask = new Task(SaveData);
             saveDataTask.Start();
@@ -171,24 +199,24 @@ namespace Bank_Independent
             {
                 case 0:
                     defaultClient = new Common(name,
-                                         lastName,
-                                         deposit,
-                                         percent,
-                                         dateTime);
+                                               lastName,
+                                               deposit,
+                                               percent,
+                                               dateTime);
                     break;
                 case 1:
                     defaultClient = new Aristocrat(name,
-                                            lastName,
-                                            deposit,
-                                            percent,
-                                            dateTime);
+                                                   lastName,
+                                                   deposit,
+                                                   percent,
+                                                   dateTime);
                     break;
                 default:
                     defaultClient = new Royal(name,
-                                       lastName,
-                                       deposit,
-                                       percent,
-                                       dateTime);
+                                              lastName,
+                                              deposit,
+                                              percent,
+                                              dateTime);
                     break;
             }
 
