@@ -1,0 +1,74 @@
+﻿<Window x:Class="Bank_System.Windows.DatabaseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bank_System.Windows"
+        mc:Ignorable="d"
+        Title="DatabaseWindow" Height="450" Width="800">
+    <Grid>
+        <DataGrid x:Name="DG_Database_View"
+                  IsSynchronizedWithCurrentItem="True"
+                  SelectionMode="Single" 
+                  AutoGenerateColumns="False" 
+                  ItemsSource="{Binding}"
+                  IsReadOnly="False" 
+                  >
+
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="ID" 
+                                    Binding="{Binding ID}" 
+                                    Header="Id" 
+                                    IsReadOnly="True"
+                                    Width="auto"/>
+
+                <DataGridTextColumn x:Name="Status" 
+                                    Binding="{Binding STATUS}" 
+                                    Header="Status"
+                                    Width="auto"/>
+
+                <DataGridTextColumn x:Name="Name" 
+                                    Binding="{Binding NAME}" 
+                                    Header="Name"
+                                    Width="auto"/>
+
+                <DataGridTextColumn x:Name="LastName" 
+                                    Binding="{Binding LASTNAME}" 
+                                    Header="Last Name"
+                                    Width="auto"/>
+
+                <DataGridTextColumn x:Name="Deposit" 
+                                    Binding="{Binding DEPOSIT}" 
+                                    Header="Deposit"
+                                    Width="auto"/>
+
+                <DataGridTextColumn x:Name="Percent" 
+                                    Binding="{Binding PERCENT}" 
+                                    Header="Percent"
+                                    Width="auto"/>
+
+                <DataGridTextColumn x:Name="Accummulation" 
+                                    Binding="{Binding ACCUMMULATION}" 
+                                    Header="Accummulation"
+                                    Width="auto"/>
+
+                <DataGridTextColumn x:Name="Balance" 
+                                    Binding="{Binding BALANCE}" 
+                                    Header="Balance"
+                                    Width="auto"/>
+
+                <DataGridTextColumn x:Name="Department" 
+                                    Binding="{Binding DEPARTMENT}" 
+                                    Header="Department"
+                                    Width="auto"/>
+
+                <DataGridTextColumn x:Name="DateOfDeposit" 
+                                    Binding="{Binding DATEOFDEPOSIT}" 
+                                    Header="Date Of Deposit"
+                                    Width="auto"/>
+
+
+            </DataGrid.Columns>            
+        </DataGrid>      
+    </Grid>
+</Window>

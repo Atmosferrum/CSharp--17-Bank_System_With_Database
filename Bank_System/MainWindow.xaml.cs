@@ -118,6 +118,17 @@ namespace Bank_System
             }
         }
 
+        /// <summary>
+        /// Button Method to SHOW DB
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BTN_Show_Database(object sender, RoutedEventArgs e)
+        {
+            DatabaseWindow dataBaseWidnow = new DatabaseWindow();
+            dataBaseWidnow.Show();
+        }
+
         #endregion Elements' Methods
 
         #region Additional Methods;
@@ -166,6 +177,6 @@ namespace Bank_System
             File.AppendAllLines("log.txt", textToAdd);
         }
 
-        #endregion Additional Methods
+        #endregion Additional Methods       
     }
 }

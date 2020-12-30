@@ -67,8 +67,11 @@
 
             </DockPanel>
             <DockPanel>
-                <Button HorizontalAlignment="Center" Margin="0 10"  Cursor="Hand" Width="100" Height="60" Click="BTN_Clients_Transfer">
+                <Button HorizontalAlignment="Left" Margin="25 10"  Cursor="Hand" Width="100" Height="60" Click="BTN_Clients_Transfer">
                     <TextBlock Text="Transfer" TextWrapping="Wrap" TextAlignment="Center" FontSize="15"/>
+                </Button>
+                <Button HorizontalAlignment="Right" Margin="25 10"  Cursor="Hand" Width="100" Height="60" Click="BTN_Show_Database">
+                    <TextBlock Text="Show Database" TextWrapping="Wrap" TextAlignment="Center" FontSize="15"/>
                 </Button>
             </DockPanel>
         </StackPanel>

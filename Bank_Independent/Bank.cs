@@ -1,14 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 using Database;
@@ -51,6 +46,8 @@ namespace Bank_Independent
 
             Departments.Add(bank);
 
+            Starter.Start();
+
             Departments[0].Departments.Add(bronze);
             Starter.Insert(bronze.Name);
             Departments[0].Departments.Add(silver);
@@ -60,7 +57,7 @@ namespace Bank_Independent
 
             PopulateBank();
 
-            Starter.Start();
+            Starter.Show();
         }        
 
         /// <summary>
@@ -97,18 +94,11 @@ namespace Bank_Independent
                                                                               args[2],
                                                                               args[3],
                                                                               args[4]));
-            //else
-            //    Departments[0].Departments[clientClassIndex].Add(ManageClient(clientClassIndex,
-            //                                                                  $"Name {(char)clientRandom.Next(128)}",
-            //                                                                  $"Name {(char)clientRandom.Next(128)}",
-            //                                                                  Convert.ToString(clientRandom.Next(2_000)),
-            //                                                                  Convert.ToString(clientRandom.Next(1, 6)),
-            //                                                                  Convert.ToString(DateRandomizer())));
             else
             {
                 var tempClient = ManageClient(clientClassIndex,
-                                              $"Name {(char)clientRandom.Next(128)}",
-                                              $"Name {(char)clientRandom.Next(128)}",
+                                              $"Name {(char)clientRandom.Next(32, 128)}",
+                                              $"Name {(char)clientRandom.Next(32, 128)}",
                                               Convert.ToString(clientRandom.Next(2_000)),
                                               Convert.ToString(clientRandom.Next(1, 6)),
                                               Convert.ToString(DateRandomizer()));
@@ -122,7 +112,8 @@ namespace Bank_Independent
                                tempClient.Percent,
                                tempClient.Accumulation,
                                tempClient.Balance,
-                               tempClient.DepartmentID);
+                               tempClient.DepartmentID,
+                               tempClient.DateOfDeposit);
             }
 
             Task saveDataTask = new Task(SaveData);
@@ -162,17 +153,29 @@ namespace Bank_Independent
                                       int clientClassIndex,
                                       params string[] args)
         {
-            Departments[0].Departments[clientClassIndex].Edit(oldClient,
-                                                              ManageClient(clientClassIndex,
-                                                                           args[0],
-                                                                           args[1],
-                                                                           args[2],
-                                                                           args[3],
-                                                                           args[4]));
+            var tempClient = ManageClient(clientClassIndex,
+                                          args[0],
+                                          args[1],
+                                          args[2],
+                                          args[3],
+                                          args[4]);
 
+            Departments[0].Departments[clientClassIndex].Edit(oldClient,
+                                                              tempClient);
+
+            Starter.UpdateClient(oldClient.ClientID,
+                                  tempClient.Name,
+                                  tempClient.LastName,
+                                  tempClient.Deposit,
+                                  tempClient.Percent,
+                                  tempClient.Accumulation,
+                                  tempClient.Balance,
+                                  tempClient.DepartmentID,
+                                  tempClient.DateOfDeposit);
+            
             Task saveDataTask = new Task(SaveData);
             saveDataTask.Start();
-            saveDataTask.Wait();
+            saveDataTask.Wait();           
         }
 
         /// <summary>
@@ -231,6 +234,8 @@ namespace Bank_Independent
         public static void RemoveClient(int x, Client client)
         {
             Departments[0].Departments[x].Remove(client);
+
+            Starter.RemoveClient(client.ClientID);
 
             Task saveDataTask = new Task(SaveData);
             saveDataTask.Start();
